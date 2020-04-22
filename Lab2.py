@@ -3,7 +3,6 @@
 from builtins import print
 from array import *
 
-
 # Zadanie 2
 # Napisz skrypt wypełniający tablicę znakami, a następnie wyświet znaki w kolejności odwrotnej do wprowadzania. Dane wprowadzane z klawiatury
 
@@ -73,19 +72,60 @@ from array import *
 # histogram("document.txt")
 
 
-#Zadanie 6
+# Zadanie 6
+# Napisz następujące funkcje niezbędne do implementacji gry w pokera pięciokartowego dobieranego:
+# deck() - zwraca listę reprezentującą talię kart w kolejności od najmłodszej do najstarszej. Każda karta posiada 2 atrybuty, będące łańcuchem tekstowym:
+# rangę - możliwe wartości: '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'D', 'K', 'A' (karty od 2 do 10 oraz walet, dama, król, as)
+#
+# kolor - możliwe wartości:
+#
+# 🔹c - ♣ trefl (clubs)
+#
+# 🔹d - ♣ karo (diamonds)
+#
+# 🔹h - ♥ kier (hearts)
+#
+# 🔹s - ♠ pik (spades)
+#
+# Każdym elementem listy powinna być krotka, będąca parą (ranga, kolor). Przykładowo as pik:
+#
+# 🂡
+# reprezentowany będzie jako ('A', 's'). Lista powinna zawierać 52 elementy (13 rang * 4 kolory).
+#
+# shuffle_deck(deck) - przyjmuje listę kart, zwraca karty potasowane (permutacja). Skorzystaj z:
+#
+# deal(deck, n) - przyjmuje talię kart (deck) oraz liczbę graczy (n), zwraca n-elementową listę 5-elementowych list z kartami rozdanymi graczom. Każda 5-elementowa lista kart gracza zawiera 5 krotek reprezentujących kartę.
+
+import random
 
 
+def deck():
+    ranga = '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'D', 'K', 'A'
+    kolorFigury = '♣', '♦', '♥', '♠'  # jeśli grafika nie wyświetla sie prawidłowo należy zakomentować tą linię oraz usunąć komentarz z linii poniżej
+    # kolorFigury= 'C', 'D', 'H', 'S'
+    lista = []
+    for i in kolorFigury:
+        for j in ranga:
+            lista.append([i, j])
+    return lista
 
 
+def shuffle_deck(lista):
+    random.shuffle(lista)
+    return lista
 
 
+def deal(lista, n):
+    dealList = []
+    hand = []
+    for i in range(n):
+        for j in range(5):
+            hand.append(lista.pop())
+        dealList.append(hand)
+        hand = []
+    return dealList
 
 
-
-
-
-
-
-
-
+# print(deck())
+# print(shuffle_deck(deck()))
+print(deal(shuffle_deck(deck()), 3))
